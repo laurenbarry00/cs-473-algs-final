@@ -1,23 +1,24 @@
 # Performs Knuth-Morris-Pratt search algorithm
-# pat: the pattern we're searching for
+
+# pattern: the pattern we're searching for
 # txt: the text to be searched
-# 
-def KMPSearch(pat, txt):
-    M = len(pat)
-    N = len(txt)
+def KMPSearch(pattern, text):
+    # string lengths
+    M = len(pattern)
+    N = len(text)
 
     # lps = longest prefix suffix
     # lps[] holds the LPS values for each pattern
     lps = [0] * M
 
     # Calculate lps[] array
-    computeLPSArray(pat, M, lps)
+    computeLPSArray(pattern, M, lps)
 
-    i = 0 # index for txt[]
-    j = 0 # index for pat[]
+    i = 0 # index for text[]
+    j = 0 # index for pattern[]
 
     while i < N:
-        if pat[j] == txt[i]:
+        if pattern[j] == text[i]:
             i += 1
             j += 1
 
@@ -26,7 +27,7 @@ def KMPSearch(pat, txt):
             j = lps[j - 1]
 
         # Mismatch after j matches
-        elif i < N and pat[j] != txt[i]:
+        elif i < N and pattern[j] != text[i]:
             # Don't match lps[0 ... lps[j - 1]] characters,
             # as they will match anyways
             if j != 0:
@@ -36,7 +37,7 @@ def KMPSearch(pat, txt):
     return -1
 
 
-def computeLPSArray(pat, M, lps):
+def computeLPSArray(pattern, M, lps):
     len = 0 # length of the LPS
 
     lps[0] # lps[0] is always 0
@@ -44,7 +45,7 @@ def computeLPSArray(pat, M, lps):
 
     # calculate lps[i] for i = 1 to M - 1
     while i < M:
-        if pat[i] == pat[len]:
+        if pat[i] == pattern[len]:
             len += 1
             lps[i]= len
             i += 1
@@ -54,7 +55,3 @@ def computeLPSArray(pat, M, lps):
             else:
                 lps[i]= 0
                 i += 1
-
-txt = "ABABDABACDABABCABAB"
-pat = "ABABCABAB"
-print(KMPSearch(pat, txt))
