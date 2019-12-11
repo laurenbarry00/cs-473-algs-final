@@ -9,7 +9,7 @@ def ShiftTable(P, A):
 
     return T
 
-def Horspool(P, X, A):
+def HorspoolSearch(P, X, A):
     T = ShiftTable(P, A)
     m = len(P)
     n  = len(X)

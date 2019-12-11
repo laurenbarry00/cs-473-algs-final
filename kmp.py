@@ -45,7 +45,7 @@ def computeLPSArray(pattern, M, lps):
 
     # calculate lps[i] for i = 1 to M - 1
     while i < M:
-        if pat[i] == pattern[len]:
+        if pattern[i] == pattern[len]:
             len += 1
             lps[i]= len
             i += 1
