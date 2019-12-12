@@ -8,22 +8,27 @@ def ShiftTable(P):
     'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q', 'R', 'r', 'S', 's', 'T', 't',
     'U', 'u', 'V', 'v', 'W', 'w', 'X', 'x', 'Y', 'y', 'Z', 'z', '1', '2',
     '3', '4', '5', '6', '7', '8', '9']
-    m = len(P) + 1
+    m = len(P) 
     T = {} #T is the table for the shifts
     for i in range(0, len(A)):
         if A[i] not in P[0:m]: #last letter doesn't match so shift 
             #by entire pattern length
             T[A[i]] = m
         else:
-            T[A[i]] = m - 1 - i
+            if m - 1 - i > 0:
+                T[A[i]] = m - 1 - i
+            else:
+                T[A[i]] = 1
+
+    print(T)
 
     return T
 
 
 def HorspoolSearch(P, X):
-
+    count = 0
+    
     T = ShiftTable(P)
-    print(T)
 
     m = len(P)
 
@@ -35,13 +40,15 @@ def HorspoolSearch(P, X):
 
         k = 0
 
-        while k <= m  and P[m - 1 - k] == X[i - k]:
+        while k < m  and P[m - 1 - k] == X[i - k]:
+            count = count + 1
  #increment until length of pattern is reached 
             #or a mismatch is found
             k = k + 1
 
         if k == m:
-
+            print(count)
+            print("index of pattern is " , i - m + 1)
             return i - m + 1  #found a match
 
         else:
@@ -49,4 +56,5 @@ def HorspoolSearch(P, X):
             i = i + T[X[i]]
 
     return -1
+
 
