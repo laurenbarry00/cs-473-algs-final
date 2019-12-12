@@ -34,6 +34,7 @@ def KMPSearch(pattern, text):
                 j = lps[j - 1]
             else:
                 i += 1
+    print("KMP: Not found.");
     return -1
 
 
