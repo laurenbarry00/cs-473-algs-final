@@ -23,6 +23,7 @@ def KMPSearch(pattern, text):
             j += 1
 
         if j == M:
+            #print("KMP: Found at " + str(i-j))
             return str(i - j)
             j = lps[j - 1]
 

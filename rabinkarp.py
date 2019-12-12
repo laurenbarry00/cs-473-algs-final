@@ -38,6 +38,7 @@ def RabinKarpSearch(pattern, text):
             j += 1
 
             if j == M:
+                #print("Rabin-Karp: Found at " + str(i))
                 return i
 
         if i < N - M:

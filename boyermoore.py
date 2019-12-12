@@ -27,6 +27,7 @@ def BoyerMooreSearch(pattern, text):
 
         # if the pattern is present, j = -1
         if j<0:
+            #print("Boyer-Moore: Found at " + str(s))
             return s
         # shift pattern so the bad character aligns with the last occurence of it in the pattern
         else:
