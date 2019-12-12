@@ -1,7 +1,6 @@
 #Based on code from https://www.geeksforgeeks.org/rabin-karp-algorithm-for-pattern-searching/
 
 def RabinKarpSearch(pattern, text):
-    count = 0
     q = 7 # a prime number
     d = 256 # num. of characters input alphabet
 
