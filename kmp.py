@@ -1,4 +1,5 @@
 # Performs Knuth-Morris-Pratt search algorithm
+# Based on code/pseudocode here:
 
 # pattern: the pattern we're searching for
 # txt: the text to be searched
@@ -38,7 +39,7 @@ def KMPSearch(pattern, text):
     print("KMP: Not found.");
     return -1
 
-
+# compute the longest prefix suffix
 def computeLPSArray(pattern, M, lps):
     len = 0 # length of the LPS
 

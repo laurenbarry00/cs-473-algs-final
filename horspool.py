@@ -1,5 +1,6 @@
 #Horspool algorithm based on pseudocode from pg. 261-262 of
 #Introduction to Algorithm Design and Analysis by Levitin
+
 def ShiftTable(P):
     #P is the pattern
     #A is the alphabet
@@ -11,7 +12,8 @@ def ShiftTable(P):
     m = len(P)
     T = {} #T is the table for the shifts
     for i in range(0, len(A)):
-        if A[i] not in P[0:m - 1]: #last letter doesn't match so shift
+        if A[i] not in P[0:m - 1]:
+            #last letter doesn't match so shift
             #by entire pattern length
             T[A[i]] = m
         else:
@@ -38,13 +40,13 @@ def HorspoolSearch(P, X):
         k = 0
 
         while k <= m  and P[m - 1 - k] == X[i - k]:
- #increment until length of pattern is reached
+            #increment until length of pattern is reached
             #or a mismatch is found
             k = k + 1
 
         if k == m:
             #print("Horspool: Found at " , i - m + 1)
-            return i - m + 1  #found a match
+            return i - m + 1  # found a match
 
         else:
 

@@ -1,4 +1,5 @@
 # Performs Rabin-Karp algorithm for pattern searching
+# Based on code/pseudocode here: https://www.geeksforgeeks.org/rabin-karp-algorithm-for-pattern-searching/
 
 # pattern: the string pattern we're searching for
 # text: the text we're searching in

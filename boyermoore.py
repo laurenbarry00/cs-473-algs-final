@@ -1,3 +1,6 @@
+# Performs Boyer-Moore algorithm
+# Based on code/pseudocode here:
+
 NUM_OF_CHARS = 256
 
 def getBadChar(string, size):
@@ -11,22 +14,22 @@ def getBadChar(string, size):
     return badChar
 
 def BoyerMooreSearch(pattern, text):
-    m = len(pattern)
-    n = len(text)
+    M = len(pattern)
+    N = len(text)
 
     # bad character list
-    badChar = getBadChar(pattern, m)
+    badChar = getBadChar(pattern, M)
 
     s = 0 # s = shift
-    while(s <= n - m):
-        j = m - 1
+    while(s <= N - M):
+        j = M - 1
 
         # keep reducing j while characters of pattern and text are matching at the current shift s
-        while j>=0 and pattern[j] == text[s+j]:
+        while j >= 0 and pattern[j] == text[s + j]:
             j -= 1
 
         # if the pattern is present, j = -1
-        if j<0:
+        if j < 0:
             #print("Boyer-Moore: Found at " + str(s))
             return s
         # shift pattern so the bad character aligns with the last occurence of it in the pattern
