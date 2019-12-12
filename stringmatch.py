@@ -34,7 +34,7 @@ pattern600 = "QgAqdtsnarcK3g6x2RdcZ12cSw0sLAUQOQBzvdDnDHa"
 
 # Length 700
 text700 = "nsuxfXtUnq6S7X0lCeW8JFKtvtaVugjwcg97GuYHg1QiZaS35SK0oAoRH9PEyfD5RmHNZ62qybGATh9JeDYk5c1RQZSk9FZAojdtNcuHkS2bhSzLq9jkyxxeRc3xlHwSDWVnAZ1uvJ8KfpdNEnLJ3XbanBP1kO5li7cwrWSwnmZZU0DjalqIBnCZlF93dA1mJOiZbRt19VAnRajLIsK7pJnCYewC4Vw4HnbFLIp1SgfP5z8Xe1OR46URrfZnCNUTykgVkkSL7hHOPc7fVDA5afVd7m3TPUrxeJ6GABj2Do2RylqDVZOXxpiLbzeI55ISD6dxo4pYUxJYifTNA91N0fZQsTz85YTBgLID7H2fHhVcS1L6P4eBK6AygLjODnMi35jMNkQ7tsGp0URJZC5b7qKfzkmkwCWoDnNzqiW8TmUqJ0M2Ak54DIDucYftf7dYOdZrScE05K2txTf48H0YwOavXlgiW7ozY7eTypvdIc8xkhG59tBQ3HiNvh6qS9bTht4E8UoVTIA87RSZNF7otNDXwDXWW3UkbexTevskLUxGLYDYauWqQzoiQXXA2ZngXqySFqixBznkDxtu367ydAboZ9EYsftnaOnqydgsh2Q3q1tPAHgWVT9xoRy0gB1kv695gPhrypTtyYgtSZ5j7S6TpUmIZ8tpObQ9KBJwlTCeCNcTClBEVLwtjBdG"
-pattern700 = "UxJYifTNA91N0fZQsTz85YTBgLID7H2fHhVcS1L6P4"
+pattern700 = "ySFqixBznkDxtu367ydAboZ9EYsftnaOnqy"
 
 # Length 800
 text800 = "ATKB6Pt6fspLxX9JGVj2T3NaObzoNx1E3zV91NYrKTtQIsop8CPAoPxJg8HjSfYmM5hGSpQXiQjyLwu5iQSjJ0GOz02i9gJ45EgjVRIm9pnPdOdtRQrLtKuy19HIzkSkqjCAG0yNzKIqnmpMi2BBdevu2YlAbp5VvKN7TL10nb9IU3oyGN4YaChpT6ewLRUoWclJOECaQstws8ROOR3JucTlUR39VQZ6Z4dYS3DYHiIelTMcvDnvVFozZ42W4mEwRNyQcAEvNl0hKopRt2J2S3yMUpmx5yb3zi4UhXiwPDZt05D02wvcFBtwiusE6Fse7njS4P2gmqsCX5TT9FegLtjj4vUmoaV2w1rTrSGeaDGCDkW6bVJijF6l4wqHyGPB4U6qemcsoie1Q5yIoayBuW5Ts6xItvGpeG8n0tpL8AXsKIeSugP1IoYP0HOfb8N4W5qAf2kvLaQU7afqcpBP6BO2OYniy7KzqPQP41FzR0TpPVETibTwWWTl6lcbUkHMbBGI0drffgcQVwfDmWmWahHGhd6HJexWvfWgatJ712EPfw3VwlPrXNyrDjbeGdP6lL67fE3LGYfWsA79uH4e2x3oT5UO8XbQtXvgmkclQucy5JkA7c5LDQbBAo7dcqADidH8RP0yEJAb9bwW9P8JSYzSVBoL5ULIl6KEsXBCffI8C1lmzXAK7Iza2lkG1VvzP7WTm1FrAm9yDhSHVYsGb7hINKmDCH6aHqNVD1Eqwbr0MEaLUyPwP3q9EMqJZrfKFltEGiOn4Os9z8fPwcBfaZxUuLCZQiDs"
@@ -54,22 +54,27 @@ timeitSetup = """
 import horspool
 import kmp
 import rabinkarp
+import boyermoore
 """
 
 
 # Run test cases 10 times each. Take the average execution time, convert to milliseconds
 # Test Length 10
-elapsed = timeit.timeit("kmp.KMPSearch(pattern10, text10)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+elapsed = timeit.timeit("kmp.KMPSearch(pattern10, text10)", setup=timeitSetup, globals=globals(), number=1)
+elapsed = elapsed * 1000 # multiply by 1000 to convert to milliseconds
 print("KMP 10: \t" + str(elapsed))
 
 elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern10, text10)", setup=timeitSetup, globals=globals(), number=10)
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 10: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern10, text10)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern10, text10)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 10: \t" + str(elapsed) + "\n")
+
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern10, text10)", setup=timeitSetup, globals=globals(), number=10)
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 10: \t" + str(elapsed) + "\n")
+print("BoyerMoore 10: \t" + str(elapsed) + "\n")
 
 
 # Test Length 100
@@ -81,10 +86,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern100, text100)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 100: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern100, text100)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 100: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern100, text100)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 100: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern100, text100)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 100: \t" + str(elapsed) + "\n")
 
 # Test Length 200
 elapsed = timeit.timeit("kmp.KMPSearch(pattern200, text200)", setup=timeitSetup, globals=globals(), number=10)
@@ -95,10 +103,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern200, text200)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 200: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern200, text200)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 200: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern200, text200)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 200: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern200, text200)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 200: \t" + str(elapsed) + "\n")
 
 # Test Length 300
 elapsed = timeit.timeit("kmp.KMPSearch(pattern300, text300)", setup=timeitSetup, globals=globals(), number=10)
@@ -109,10 +120,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern300, text300)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 300: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern300, text300)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 300: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern300, text300)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 300: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern300, text300)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 300: \t" + str(elapsed) + "\n")
 
 # Test Length 400
 elapsed = timeit.timeit("kmp.KMPSearch(pattern400, text400)", setup=timeitSetup, globals=globals(), number=10)
@@ -123,10 +137,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern400, text400)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 400: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern400, text400)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 400: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern400, text400)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 400: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern400, text400)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 400: \t" + str(elapsed) + "\n")
 
 # Test Length 500
 elapsed = timeit.timeit("kmp.KMPSearch(pattern500, text500)", setup=timeitSetup, globals=globals(), number=10)
@@ -137,10 +154,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern500, text500)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 500: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern500, text500)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 500: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern500, text500)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 500: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern500, text500)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 500: \t" + str(elapsed) + "\n")
 
 # Test Length 600
 elapsed = timeit.timeit("kmp.KMPSearch(pattern600, text600)", setup=timeitSetup, globals=globals(), number=10)
@@ -151,10 +171,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern600, text600)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 600: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern600, text600)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 600: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern600, text600)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 600: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern600, text600)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 600: \t" + str(elapsed) + "\n")
 
 # Test Length 700
 elapsed = timeit.timeit("kmp.KMPSearch(pattern700, text700)", setup=timeitSetup, globals=globals(), number=10)
@@ -166,10 +189,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern700, text700)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 700: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern700, text700)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 700: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern700, text700)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 700: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern700, text700)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 700: \t" + str(elapsed) + "\n")
 
 # Test Length 800
 elapsed = timeit.timeit("kmp.KMPSearch(pattern800, text800)", setup=timeitSetup, globals=globals(), number=10)
@@ -180,10 +206,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern800, text800)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 800: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern800, text800)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 800: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern800, text800)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 800: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern800, text800)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 800: \t" + str(elapsed) + "\n")
 
 # Test Length 900
 elapsed = timeit.timeit("kmp.KMPSearch(pattern900, text900)", setup=timeitSetup, globals=globals(), number=10)
@@ -194,10 +223,13 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern900, text900)", setup=
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 900: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern900, text900)", setup=timeitSetup, globals=globals(), number=10)
-elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 900: \t" + str(elapsed) + "\n")
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern900, text900)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 900: \t" + str(elapsed) + "\n")
 
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern900, text900)", setup=timeitSetup, globals=globals(), number=10)
+elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+print("BoyerMoore 900: \t" + str(elapsed) + "\n")
 
 # Test Length 1000
 elapsed = timeit.timeit("kmp.KMPSearch(pattern1000, text1000)", setup=timeitSetup, globals=globals(), number=10)
@@ -208,6 +240,10 @@ elapsed = timeit.timeit("rabinkarp.RabinKarpSearch(pattern1000, text1000)", setu
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
 print("RabinKarp 1000: \t" + str(elapsed))
 
-elapsed = timeit.timeit("horspool.HorspoolSearch(pattern1000, text1000)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = timeit.timeit("horspool.HorspoolSearch(pattern1000, text1000)", setup=timeitSetup, globals=globals(), number=10)
+#elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
+#print("Horspool 1000: \t" + str(elapsed) + "\n")
+
+elapsed = timeit.timeit("boyermoore.BoyerMooreSearch(pattern1000, text1000)", setup=timeitSetup, globals=globals(), number=10)
 elapsed = elapsed/10 * 1000 # multiply by 1000 to convert to milliseconds
-print("Horspool 1000: \t" + str(elapsed) + "\n")
+print("BoyerMoore 1000: \t" + str(elapsed) + "\n")
